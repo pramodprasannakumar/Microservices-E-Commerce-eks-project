@@ -505,6 +505,151 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
+---
+
+### 16.6: 🚀 Expose ArgoCD Server Using LoadBalancer
+
+### 16.6.1: Edit the ArgoCD Server Service
+
+```bash
+kubectl edit svc argocd-server -n argocd
+```
+
+### 16.6.2: Change the Service Type
+
+Find this line:
+
+```yaml
+type: ClusterIP
+```
+
+Change it to:
+
+```yaml
+type: LoadBalancer
+```
+
+Save and exit (`:wq` for `vi`).
+
+### 16.6.3: Get the External Load Balancer DNS
+
+```bash
+kubectl get svc argocd-server -n argocd
+```
+
+Sample output:
+
+```bash
+NAME            TYPE           CLUSTER-IP     EXTERNAL-IP                           PORT(S)                          AGE
+argocd-server   LoadBalancer   172.20.1.100   a1b2c3d4e5f6.elb.amazonaws.com        80:31234/TCP,443:31356/TCP       2m
+```
+
+### 16.6.4: Access the ArgoCD UI
+
+Use the DNS:
+
+```bash
+https://<EXTERNAL-IP>.amazonaws.com
+```
+
+---
+
+### 16.7: 🔐 Get the Initial ArgoCD Admin Password
+
+```bash
+kubectl get secret argocd-initial-admin-secret -n argocd \
+  -o jsonpath="{.data.password}" | base64 -d && echo
+```
+
+### Login Details:
+
+* **Username:** `admin`
+* **Password:** (The output of the above command)
+
+---
+
+## Step 19:  Deploying with ArgoCD and Configuring Route 53 (Step-by-Step)
+
+### Step 19.1: Create Namespace in EKS (from Jumphost EC2)
+Run these commands on your jumphost EC2 server:
+```bash
+kubectl create namespace dev
+kubectl get namespaces
+```
+
+### Step 19.2: Create New Applicatio with ArgoCD
+1. Open the **ArgoCD UI** in your browser.
+2. Click **+ NEW APP**.
+3. Fill in the following:
+   - **Application Name:** `project`
+   - **Project Name:** `default`
+   - **Sync Policy:** `Automatic`
+   - **Repository URL:** `https://github.com/arumullayaswanth/Fullstack-nodejs-aws-eks-project.git`
+   - **Revision:** `HEAD`
+   - **Path:** `kubernetes-files`
+   - **Cluster URL:** `https://kubernetes.default.svc`
+   - **Namespace:** `dev`
+4. Click **Create**.
+
+
+## Step 17: Create a Jenkins Pipeline Job for Backend and frondend & Route 53 Setup
+
+### Prerequisites
+1. Go to AWS Route 53
+2. Create a Hosted Zone:
+   - Domain: `aluru.site`
+   - Type: Public Hosted Zone
+3. Update Hostinger Nameservers:
+   - Paste the 4 NS records from Route 53 into Hostinger:
+     - ns-865.awsdns-84.net
+     - ns-1995.awsdns-97.co.uk
+     - ns-1418.awsdns-59.org
+     - ns-265.awsdns-73.com
+
+### Step 19.3: Configure Route 53 for Backend
+1. In ArgoCD UI, open your `project` application.
+2. Click on **backend** and copy the hostname (e.g.,
+   `acfb06fba08834577a50e43724d328e3-1568967602.us-east-1.elb.amazonaws.com`).
+3. Go to **AWS Route 53** > **Hosted zones** > open your hosted zone (e.g., `aluru.site`).
+4. Click **Create record** and fill in:
+   - **Record type:** `A – Routes traffic to an IPv4 address and some AWS resources`
+   - **Alias:** `Yes`
+   - **Alias target:** Choose Application and Classic Load Balancer
+   - **Region:** `US East (N. Virginia)`
+   - **Alias target value:** Paste the backend load balancer DNS (from step 2)
+5. Click **Create record**.
+
+### 6. 🔐 Enable HTTPS with ACM and Route 53 (Step-by-Step)
+
+#### 6.1: Request a Public Certificate in ACM
+1. Go to **AWS Certificate Manager (ACM)** in the AWS Console.
+2. Click **Request a certificate**.
+3. Select **Request a public certificate** and click **Next**.
+4. Enter your domain name: `aluru.site` (and optionally `www.aluru.site`).
+5. Choose **DNS validation (recommended)**.
+6. Click **Request**.
+
+#### 6.22: Validate Domain in Route 53
+1. In ACM, go to **Certificates** and select your new certificate.
+2. Under the domain, click **Create DNS record in Amazon Route 53**.
+3. Select your hosted zone: `aluru.site`.
+4. Click **Create record**.
+5. Wait a few minutes for validation to complete (Status: **Issued**).
+
+#### 6.3: Add HTTPS Listener to Load Balancer
+1. Go to **EC2 Console** → **Load Balancers** → select your frontend ALB (e.g., `frontend-alb`).
+2. Go to the **Listeners** tab.
+3. Click **Add listener**:
+   - **Protocol:** HTTPS
+   - **Port:** 443
+   - **Action:** Forward to your web target group
+   - **Security policy:** ELBSecurityPolicy-2021-06 (or latest)
+   - **Select ACM Certificate:** Choose the one for `aluru.site`
+4. Click **Add**.
+
+#### 6.4: Access Your Application
+1. Open your browser and go to: https://aluru.site
+2. Your application should now be accessible over HTTPS!
 
 
    
