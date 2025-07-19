@@ -326,183 +326,184 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
 
 ### 🚀 Step 17.2.1:  📂 Jenkins Pipeline Setup: emailservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `emailservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `emailservice`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `jenkinsfiles/emailservice`
+   - Apply
+   - Save
+6. click **Build**
    
 ### 🚀 Step 17.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `checkoutservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `recommendationservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 
 ### 🚀 Step 17.2.4:  📂 Jenkins Pipeline Setup: frontend
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `frontend`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.5:  📂 Jenkins Pipeline Setup: paymentservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `paymentservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 
 
 ### 🚀 Step 17.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `productcatalogservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 
 ### 🚀 Step 17.2.7:  📂 Jenkins Pipeline Setup: cartservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `cartservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `loadgenerator`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.9:  📂 Jenkins Pipeline Setup: currencyservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `currencyservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.10:  📂 Jenkins Pipeline Setup: shippingservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `shippingservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 ### 🚀 Step 17.2.11:  📂 Jenkins Pipeline Setup: adservice
-1. Go to **Jenkins Dashboard**
+1. Go to Jenkins Dashboard
 2. Click **New Item**
-
-   * Enter an item name: `adservice`
-   * Select: **Pipeline**
-   * Click **OK**
-3. In the Pipeline section:
-
-   * Scroll to **Pipeline** → **Definition: Pipeline script**
-   * In **Script**, enter:
-
-
-4. Click **Save**
-5. Click **Build Now**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build**
 
 
 
