@@ -42,21 +42,25 @@ pipeline {
         stage('Update Deployment file') {
             environment {
                 GIT_REPO_NAME = "Microservices-E-Commerce-eks-project"
+                GIT_EMAIL = "Yaswanth.arumulla@gmail.com"
                 GIT_USER_NAME = "arumullayaswanth"
+                IMAGE_NAME = "emailservice"
+                REPO_URL = "421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice"
+                YAML_FILE = "emailservice.yaml"
             }
             steps {
                 dir('kubernetes-files') {
                     withCredentials([string(credentialsId: 'my-git-pattoken', variable: 'git_token')]) {
                         sh '''
-                            git config user.email "Yaswanth.arumulla@gmail.com"
-                            git config user.name "arumullayaswanth"
+                            git config user.email "${GIT_EMAIL}"
+                            git config user.name "${GIT_USER_NAME}"
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
 
                             # push this image to your git hub
-                            sed -i "s|image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice:.*|image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice:${BUILD_NUMBER}|g" kuberenetes-manfest-file.yaml
+                            sed -i "s#image:.*#image: ${REPO_URL}:$BUILD_NUMBER#g" emailservice.yaml
                             git add .
-                            git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
+                            git commit -m "Update ${IMAGE_NAME} Image to version \${BUILD_NUMBER}"
                             git push https://${git_token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
         
                         '''
