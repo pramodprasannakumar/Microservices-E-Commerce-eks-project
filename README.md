@@ -240,3 +240,24 @@ Click **Save** for both.
 aws eks --region us-east-1 update-kubeconfig --name project-eks
 kubectl get nodes
 ```
+## 🛠️ Step 11: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
+
+1. Go to Jenkins Dashboard
+2. Click **New Item**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build with Parameters**
+   - ACTION :
+    - Select Terraform action : `apply`
+    - **Build** 
+
+- To verify your EKS cluster, connect to your EC2 jumphost server and run:
