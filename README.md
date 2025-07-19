@@ -310,3 +310,17 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 - Use the search bar to search each repository name:
 
 ---
+## Step 11: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
+## 🔐 Step 11.1: Add GitHub PAT to Jenkins Credentials
+
+1. Navigate to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials** → **(global)** → **Global credentials (unrestricted)**.
+2. Click **“Add Credentials”**.
+3. In the form:
+   - **Kind**: `Secret text`
+   - **Secret**: `ghp_HKMTPOKYE2LLGuytsimxnnl5d1f73zh`
+   - **ID**: `my-git-pattoken`
+   - **Description**: `git credentials`
+4. Click **“OK”** to save.
+
+### 🚀 step 17.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
+
