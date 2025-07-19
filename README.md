@@ -108,7 +108,20 @@ aws_subnet.public-subnet1
 aws_subnet.public-subnet2
 aws_vpc.vpc
 ```
-5. DevOps Tool Installation Check & Version Report
+---
+
+## 💻 Step 6: Connect to EC2 and Access Jenkins
+
+1. Go to **AWS Console** → **EC2**
+2. Click your instance → Connect
+3. Once connected, switch to root:
+
+```bash
+sudo -i
+```
+
+4. DevOps Tool Installation Check & Version Report
+
 ```bash
   [Git]="git --version"
   [Java]="java -version"
@@ -125,23 +138,6 @@ aws_vpc.vpc
   [Prometheus]="kubectl get pods -A | grep prometheus"
   [AWS_CLI]="aws --version"
   [MariaDB]="mysql --version"
-```
----
-
-## 💻 Step 6: Connect to EC2 and Access Jenkins
-
-1. Go to **AWS Console** → **EC2**
-2. Click your instance → Connect
-3. Once connected, switch to root:
-
-```bash
-sudo -i
-```
-
-4. Check Jenkins is installed:
-
-```bash
-jenkins --version
 ```
 
 5. Get the initial Jenkins admin password:
@@ -180,8 +176,8 @@ http://<EC2 Public IP>:8080
 Click through: **Save and Continue → Save and Finish → Start using Jenkins**
 
 ---
-## 🔐 Step 12: it is a (Optional) 
-## 🔐 Step 12: Add AWS Credentials in Jenkins
+## 🔐 Step 8: it is a (Optional) 
+## 🔐 Step 8: Add AWS Credentials in Jenkins
 
 1. In Jenkins Dashboard → **Manage Jenkins**
 2. Go to: **Credentials → System → Global Credentials (unrestricted)**
@@ -203,7 +199,7 @@ Click **Save** for both.
 
 ---
 
-## 🔌 Step 13: Install Jenkins Plugin
+## 🔌 Step 9.1: Install Jenkins Plugin
 
 1. Jenkins Dashboard → **Manage Jenkins**
 2. Go to: **Plugins**
