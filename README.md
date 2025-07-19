@@ -240,6 +240,8 @@ Click **Save** for both.
 aws eks --region us-east-1 update-kubeconfig --name project-eks
 kubectl get nodes
 ```
+---
+
 ## 🛠️ Step 11: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
 
 1. Go to Jenkins Dashboard
@@ -261,3 +263,50 @@ kubectl get nodes
     - **Build** 
 
 - To verify your EKS cluster, connect to your EC2 jumphost server and run:
+```bash
+aws ecr describe-repositories --region us-east-1
+```
+
+- ✅ Verify Amazon ECR Repositories in AWS Console (us-east-1)
+This guide shows how to verify if your ECR repositories exist using the AWS Console UI.
+
+#### 🔹 Navigation Path
+
+**Amazon ECR → Private registry → Repositories**
+
+#### 🛠 Prerequisites
+
+- AWS Console access
+- IAM permissions to view Amazon ECR
+- Repositories to verify:
+  - `emailservice`
+  - `checkoutservice`
+  - `recommendationservice`
+  - `frontend`
+  - `paymentservice`
+  - `productcatalogservice`
+  - `cartservice`
+  - `loadgenerator`
+  - `currencyservice`
+  - `shippingservice`
+  - `adservice`
+
+#### 📘 Step-by-Step Instructions
+
+##### 1. Log in to AWS Console  
+🔗 [https://us-east-1.console.aws.amazon.com/](https://us-east-1.console.aws.amazon.com/)
+
+### 2. Go to Elastic Container Registry  
+- In the top search bar, type: `ECR`
+- Click on **Elastic Container Registry**
+
+##### 3. Navigate to Repositories  
+- In the left sidebar, click:  
+  **Private registry → Repositories**  
+- Or go directly here:  
+  🔗 [https://us-east-1.console.aws.amazon.com/ecr/repositories](https://us-east-1.console.aws.amazon.com/ecr/repositories)
+
+##### 4. Verify Repositories  
+- Use the search bar to search each repository name:
+
+---
