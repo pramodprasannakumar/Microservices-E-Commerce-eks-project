@@ -205,3 +205,19 @@ resource "aws_iam_openid_connect_provider" "eks_oidc" {
 data "aws_eks_cluster" "eks" {
   name = aws_eks_cluster.eks.name
 }
+
+
+# --- OIDC Provider for EKS (for IAM roles for service accounts) ---
+data "aws_eks_cluster" "eks_oidc" {
+  name = aws_eks_cluster.eks.name
+}
+
+data "tls_certificate" "oidc_thumbprint" {
+  url = data.aws_eks_cluster.eks_oidc.identity[0].oidc[0].issuer
+}
+
+resource "aws_iam_openid_connect_provider" "eks_oidc" {
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [data.tls_certificate.oidc_thumbprint.certificates[0].sha1_fingerprint]
+  url             = data.aws_eks_cluster.eks_oidc.identity[0].oidc[0].issuer
+}
