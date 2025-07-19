@@ -196,16 +196,6 @@ data "aws_security_group" "selected" {
       aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     ]
   }
-resource "aws_iam_openid_connect_provider" "eks_oidc" {
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.aws_eks_cluster.eks.identity[0].oidc[0].issuer_thumbprint]
-  url             = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
-}
-
-data "aws_eks_cluster" "eks" {
-  name = aws_eks_cluster.eks.name
-}
-
 
 # --- OIDC Provider for EKS (for IAM roles for service accounts) ---
 data "aws_eks_cluster" "eks_oidc" {
