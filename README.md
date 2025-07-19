@@ -109,6 +109,20 @@ aws_subnet.public-subnet2
 aws_vpc.vpc
 ```
 5. DevOps Tool Installation Check & Version Report
-- [Git]="git --version"
-- 
+```bash
+  [Git]="git --version"
+  [Java]="java -version"
+  [Jenkins]="jenkins --version"
+  [Terraform]="terraform -version"
+  [Maven]="mvn -v"
+  [kubectl]="kubectl version --client --short"
+  [eksctl]="eksctl version"
+  [Helm]="helm version --short"
+  [Docker]="docker --version"
+  [Trivy]="trivy --version"
+  [SonarQube]="docker ps | grep sonar"
+  [Grafana]="kubectl get pods -A | grep grafana"
+  [Prometheus]="kubectl get pods -A | grep prometheus"
+  [AWS_CLI]="aws --version"
+  [MariaDB]="mysql --version"
 ---
