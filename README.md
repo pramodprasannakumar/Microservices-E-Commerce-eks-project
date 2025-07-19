@@ -296,7 +296,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ##### 1. Log in to AWS Console  
 🔗 [https://us-east-1.console.aws.amazon.com/](https://us-east-1.console.aws.amazon.com/)
 
-### 2. Go to Elastic Container Registry  
+##### 2. Go to Elastic Container Registry  
 - In the top search bar, type: `ECR`
 - Click on **Elastic Container Registry**
 
