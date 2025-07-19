@@ -125,4 +125,117 @@ aws_vpc.vpc
   [Prometheus]="kubectl get pods -A | grep prometheus"
   [AWS_CLI]="aws --version"
   [MariaDB]="mysql --version"
+```
 ---
+
+## 💻 Step 6: Connect to EC2 and Access Jenkins
+
+1. Go to **AWS Console** → **EC2**
+2. Click your instance → Connect
+3. Once connected, switch to root:
+
+```bash
+sudo -i
+```
+
+4. Check Jenkins is installed:
+
+```bash
+jenkins --version
+```
+
+5. Get the initial Jenkins admin password:
+
+```bash
+cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+- example output :
+``` bash
+0c39f23132004d508132ae3e0a7c70e4
+```
+
+Copy that password!
+
+---
+
+## 🌐 Step 7: Jenkins Setup in Browser
+
+1. Open browser and go to:
+
+```
+http://<EC2 Public IP>:8080
+```
+
+2. Paste the password from last step.
+3. Click **Install suggested plugins**
+4. Create first user:
+
+| Field     | Value       |
+|-----------|-------------|
+| Username  | yaswanth    |
+| Password  | yaswanth    |
+| Full Name | yaswanth    |
+| Email     | yash@example.com |
+
+Click through: **Save and Continue → Save and Finish → Start using Jenkins**
+
+---
+## 🔐 Step 12: it is a (Optional) 
+## 🔐 Step 12: Add AWS Credentials in Jenkins
+
+1. In Jenkins Dashboard → **Manage Jenkins**
+2. Go to: **Credentials → System → Global Credentials (unrestricted)**
+3. Click **Add Credentials**
+
+### Add Access Key:
+- Kind: Secret Text
+- Secret: _your AWS Access Key_
+- ID: `accesskey`
+- Description: AWS Access Key
+
+### Add Secret Key:
+- Kind: Secret Text
+- Secret: _your AWS Secret Key_
+- ID: `secretkey`
+- Description: AWS Secret Key
+
+Click **Save** for both.
+
+---
+
+## 🔌 Step 13: Install Jenkins Plugin
+
+1. Jenkins Dashboard → **Manage Jenkins**
+2. Go to: **Plugins**
+3. Click **Available plugins**
+4. Search for: `pipeline: stage view`
+5. Install it
+
+
+---
+
+## 🛠️ Step 14: Create a Jenkins Pipeline Job (Create EKS Cluster)
+
+1. Go to Jenkins Dashboard
+2. Click **New Item**
+3. Name it: `eks-terraform`
+4. Select: **Pipeline**
+5. Click **OK**
+ - Pipeline:
+   - Definition : `Pipeline script from SCM`
+   - SCM : `Git`
+   - Repositories : `https://github.com/arumullayaswanth/Fullstack-nodejs-aws-eks-project.git`
+   - Branches to build : `*/master`
+   - Script Path : `eks-terraform/eks-jenkinsfile`
+   - Apply
+   - Save
+6. click **Build with Parameters**
+   - ACTION :
+    - Select Terraform action : `apply`
+    - **Build** 
+
+- To verify your EKS cluster, connect to your EC2 jumphost server and run:
+```bash
+aws eks --region us-east-1 update-kubeconfig --name project-eks
+kubectl get nodes
+```
