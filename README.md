@@ -199,18 +199,23 @@ Click **Save** for both.
 
 ---
 
-## 🔌 Step 9.1: Install Jenkins Plugin
+## 🔌 Step 9: Install Jenkins Plugin
 
 1. Jenkins Dashboard → **Manage Jenkins**
 2. Go to: **Plugins**
 3. Click **Available plugins**
-4. Search for: `pipeline: stage view`
+4. Search for:
+   - `pipeline: stage view`
+   - `Docker`
+   - `Docker Pipeline`
+   - `Kubernetes`
+   - `Kubernetes CLI`
 5. Install it
 
 
 ---
 
-## 🛠️ Step 14: Create a Jenkins Pipeline Job (Create EKS Cluster)
+## 🛠️ Step 10: Create a Jenkins Pipeline Job (Create EKS Cluster)
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
@@ -220,7 +225,7 @@ Click **Save** for both.
  - Pipeline:
    - Definition : `Pipeline script from SCM`
    - SCM : `Git`
-   - Repositories : `https://github.com/arumullayaswanth/Fullstack-nodejs-aws-eks-project.git`
+   - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
    - Script Path : `eks-terraform/eks-jenkinsfile`
    - Apply
