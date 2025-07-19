@@ -323,9 +323,9 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - **Description**: `git credentials`
 4. Click **“OK”** to save.
 
-### 🚀 step 17.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
+### 🚀 Step 17.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
 
-### 🚀 step 17.2.1:  📂 Jenkins Pipeline Setup: emailservice
+### 🚀 Step 17.2.1:  📂 Jenkins Pipeline Setup: emailservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -341,7 +341,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
    
-### 🚀 step 17.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
+### 🚀 Step 17.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -356,7 +356,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
+### 🚀 Step 17.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -373,7 +373,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 5. Click **Build Now**
 
 
-### 🚀 step 17.2.4:  📂 Jenkins Pipeline Setup: frontend
+### 🚀 Step 17.2.4:  📂 Jenkins Pipeline Setup: frontend
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -389,7 +389,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.5:  📂 Jenkins Pipeline Setup: paymentservice
+### 🚀 Step 17.2.5:  📂 Jenkins Pipeline Setup: paymentservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -407,7 +407,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 
 
 
-### 🚀 step 17.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
+### 🚀 Step 17.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -424,7 +424,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 5. Click **Build Now**
 
 
-### 🚀 step 17.2.7:  📂 Jenkins Pipeline Setup: cartservice
+### 🚀 Step 17.2.7:  📂 Jenkins Pipeline Setup: cartservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -440,7 +440,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
+### 🚀 Step 17.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -456,7 +456,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.9:  📂 Jenkins Pipeline Setup: currencyservice
+### 🚀 Step 17.2.9:  📂 Jenkins Pipeline Setup: currencyservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -472,7 +472,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.10:  📂 Jenkins Pipeline Setup: shippingservice
+### 🚀 Step 17.2.10:  📂 Jenkins Pipeline Setup: shippingservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
@@ -488,7 +488,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 4. Click **Save**
 5. Click **Build Now**
 
-### 🚀 step 17.2.11:  📂 Jenkins Pipeline Setup: adservice
+### 🚀 Step 17.2.11:  📂 Jenkins Pipeline Setup: adservice
 1. Go to **Jenkins Dashboard**
 2. Click **New Item**
 
