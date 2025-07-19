@@ -108,4 +108,7 @@ aws_subnet.public-subnet1
 aws_subnet.public-subnet2
 aws_vpc.vpc
 ```
+5. DevOps Tool Installation Check & Version Report
+- [Git]="git --version"
+- 
 ---
