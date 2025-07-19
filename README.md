@@ -262,12 +262,12 @@ kubectl get nodes
     - Select Terraform action : `apply`
     - **Build** 
 
-- To verify your EKS cluster, connect to your EC2 jumphost server and run:
+7. To verify your EKS cluster, connect to your EC2 jumphost server and run:
 ```bash
 aws ecr describe-repositories --region us-east-1
 ```
 
-- ✅ Verify Amazon ECR Repositories in AWS Console (us-east-1)
+8. ✅ Verify Amazon ECR Repositories in AWS Console (us-east-1)
 This guide shows how to verify if your ECR repositories exist using the AWS Console UI.
 
 #### 🔹 Navigation Path
