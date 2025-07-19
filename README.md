@@ -344,7 +344,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `checkoutservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -352,7 +352,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/checkoutservice`
    - Apply
    - Save
 6. click **Build**
@@ -360,7 +360,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `recommendationservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -368,7 +368,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/recommendationservice`
    - Apply
    - Save
 6. click **Build**
@@ -377,7 +377,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.4:  📂 Jenkins Pipeline Setup: frontend
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `frontend`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -385,7 +385,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/frontend`
    - Apply
    - Save
 6. click **Build**
@@ -393,7 +393,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.5:  📂 Jenkins Pipeline Setup: paymentservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `paymentservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -401,7 +401,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/paymentservice`
    - Apply
    - Save
 6. click **Build**
@@ -411,7 +411,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `productcatalogservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -419,7 +419,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/productcatalogservice`
    - Apply
    - Save
 6. click **Build**
@@ -428,7 +428,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.7:  📂 Jenkins Pipeline Setup: cartservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `cartservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -436,7 +436,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/cartservice`
    - Apply
    - Save
 6. click **Build**
@@ -444,7 +444,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `loadgenerator`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -452,7 +452,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/loadgenerator`
    - Apply
    - Save
 6. click **Build**
@@ -460,7 +460,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.9:  📂 Jenkins Pipeline Setup: currencyservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `currencyservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -468,7 +468,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/currencyservice`
    - Apply
    - Save
 6. click **Build**
@@ -476,7 +476,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.10:  📂 Jenkins Pipeline Setup: shippingservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `shippingservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -484,7 +484,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/shippingservice`
    - Apply
    - Save
 6. click **Build**
@@ -492,7 +492,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 ### 🚀 Step 17.2.11:  📂 Jenkins Pipeline Setup: adservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `adservice`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -500,7 +500,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `jenkinsfiles/adservice`
    - Apply
    - Save
 6. click **Build**
