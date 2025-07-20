@@ -29,7 +29,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/frontend:3
+          image: 590183907926.dkr.ecr.us-east-1.amazonaws.com/frontend:1    #please change the image url according to your account
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -65,10 +65,16 @@ spec:
             value: "checkoutservice:5050"
           - name: AD_SERVICE_ADDR
             value: "adservice:9555"
+          # # ENV_PLATFORM: One of: local, gcp, aws, azure, onprem, alibaba
+          # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp
           - name: ENV_PLATFORM
             value: "aws"
           - name: ENABLE_PROFILER
             value: "0"
+          # - name: CYMBAL_BRANDING
+          #   value: "true"
+          # - name: FRONTEND_MESSAGE
+          #   value: "Replace this with a message you want to display on all pages."
           resources:
             requests:
               cpu: 100m
