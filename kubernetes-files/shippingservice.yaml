@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +27,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/shippingservice:2
+        image: 590183907926.dkr.ecr.us-east-1.amazonaws.com/shippingservice:1  #please change the image url according to your account
         ports:
         - containerPort: 50051
         env:
@@ -35,17 +36,10 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         readinessProbe:
-          initialDelaySeconds: 10         # ✅ added
           periodSeconds: 5
-          timeoutSeconds: 1               # ✅ added
-          successThreshold: 1             # ✅ added
           grpc:
             port: 50051
         livenessProbe:
-          initialDelaySeconds: 10         # ✅ added
-          periodSeconds: 5
-          timeoutSeconds: 1               # ✅ added
-          successThreshold: 1             # ✅ added
           grpc:
             port: 50051
         resources:
