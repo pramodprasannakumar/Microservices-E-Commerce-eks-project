@@ -310,9 +310,9 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 - Use the search bar to search each repository name:
 
 ---
-## Step 11: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
+## Step 12: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
 
-## 🔐 Step 11.1: Add GitHub PAT to Jenkins Credentials
+### 🔐 Step 12.1: Add GitHub PAT to Jenkins Credentials
 
 1. Navigate to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials** → **(global)** → **Global credentials (unrestricted)**.
 2. Click **“Add Credentials”**.
@@ -323,9 +323,9 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - **Description**: `git credentials`
 4. Click **“OK”** to save.
 
-### 🚀 Step 17.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
+### 🚀 Step 12.2: ⚖️ Jenkins Pipeline Setup: Build and Push and update Docker Images to ECR
 
-### 🚀 Step 17.2.1:  📂 Jenkins Pipeline Setup: emailservice
+### 🚀 Step 12.2.1:  📂 Jenkins Pipeline Setup: emailservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `emailservice`
@@ -341,7 +341,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
    
-### 🚀 Step 17.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
+### 🚀 Step 12.2.2:  📂 Jenkins Pipeline Setup: checkoutservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `checkoutservice`
@@ -357,7 +357,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
+### 🚀 Step 12.2.3:  📂 Jenkins Pipeline Setup: recommendationservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `recommendationservice`
@@ -374,7 +374,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 6. click **Build**
 
 
-### 🚀 Step 17.2.4:  📂 Jenkins Pipeline Setup: frontend
+### 🚀 Step 12.2.4:  📂 Jenkins Pipeline Setup: frontend
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `frontend`
@@ -390,7 +390,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.5:  📂 Jenkins Pipeline Setup: paymentservice
+### 🚀 Step 12.2.5:  📂 Jenkins Pipeline Setup: paymentservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `paymentservice`
@@ -408,7 +408,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 
 
 
-### 🚀 Step 17.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
+### 🚀 Step 12.2.6:  📂 Jenkins Pipeline Setup: productcatalogservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `productcatalogservice`
@@ -425,7 +425,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 6. click **Build**
 
 
-### 🚀 Step 17.2.7:  📂 Jenkins Pipeline Setup: cartservice
+### 🚀 Step 12.2.7:  📂 Jenkins Pipeline Setup: cartservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `cartservice`
@@ -441,7 +441,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
+### 🚀 Step 12.2.8:  📂 Jenkins Pipeline Setup: loadgenerator
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `loadgenerator`
@@ -457,7 +457,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.9:  📂 Jenkins Pipeline Setup: currencyservice
+### 🚀 Step 12.2.9:  📂 Jenkins Pipeline Setup: currencyservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `currencyservice`
@@ -473,7 +473,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.10:  📂 Jenkins Pipeline Setup: shippingservice
+### 🚀 Step 12.2.10:  📂 Jenkins Pipeline Setup: shippingservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `shippingservice`
@@ -489,7 +489,7 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
    - Save
 6. click **Build**
 
-### 🚀 Step 17.2.11:  📂 Jenkins Pipeline Setup: adservice
+### 🚀 Step 12.2.11:  📂 Jenkins Pipeline Setup: adservice
 1. Go to Jenkins Dashboard
 2. Click **New Item**
 3. Name it: `adservice`
@@ -507,15 +507,65 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 
 ---
 
-### 16.6: 🚀 Expose ArgoCD Server Using LoadBalancer
+---
+## 🖥️ step 13 : 🎉 Install ArgoCD in Jumphost EC2
 
-### 16.6.1: Edit the ArgoCD Server Service
+### 13.1: Create Namespace for ArgoCD
+
+```bash
+kubectl create namespace argocd
+```
+
+### 13.2: Install ArgoCD in the Created Namespace
+
+```bash
+kubectl apply -n argocd \
+  -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+### 13.3: Verify the Installation
+
+```bash
+kubectl get pods -n argocd
+```
+
+Ensure all pods are in `Running` state.
+
+### 13.4: Validate the Cluster
+
+Check your nodes and create a test pod if necessary:
+
+```bash
+kubectl get nodes
+```
+
+### 13.5: List All ArgoCD Resources
+
+```bash
+kubectl get all -n argocd
+```
+
+Sample output:
+
+```
+NAME                                                    READY   STATUS    RESTARTS   AGE
+pod/argocd-application-controller-0                     1/1     Running   0          106m
+pod/argocd-applicationset-controller-787bfd9669-4mxq6   1/1     Running   0          106m
+pod/argocd-dex-server-bb76f899c-slg7k                   1/1     Running   0          106m
+pod/argocd-notifications-controller-5557f7bb5b-84cjr    1/1     Running   0          106m
+pod/argocd-redis-b5d6bf5f5-482qq                        1/1     Running   0          106m
+pod/argocd-repo-server-56998dcf9c-c75wk                 1/1     Running   0          106m
+pod/argocd-server-5985b6cf6f-zzgx8                      1/1     Running   0          106m
+```
+### 14.6: 🚀 Expose ArgoCD Server Using LoadBalancer
+
+### 14.6.1: Edit the ArgoCD Server Service
 
 ```bash
 kubectl edit svc argocd-server -n argocd
 ```
 
-### 16.6.2: Change the Service Type
+### 14.6.2: Change the Service Type
 
 Find this line:
 
@@ -531,7 +581,7 @@ type: LoadBalancer
 
 Save and exit (`:wq` for `vi`).
 
-### 16.6.3: Get the External Load Balancer DNS
+### 14.6.3: Get the External Load Balancer DNS
 
 ```bash
 kubectl get svc argocd-server -n argocd
@@ -544,7 +594,7 @@ NAME            TYPE           CLUSTER-IP     EXTERNAL-IP                       
 argocd-server   LoadBalancer   172.20.1.100   a1b2c3d4e5f6.elb.amazonaws.com        80:31234/TCP,443:31356/TCP       2m
 ```
 
-### 16.6.4: Access the ArgoCD UI
+### 14.6.4: Access the ArgoCD UI
 
 Use the DNS:
 
@@ -554,7 +604,7 @@ https://<EXTERNAL-IP>.amazonaws.com
 
 ---
 
-### 16.7: 🔐 Get the Initial ArgoCD Admin Password
+### 14.7: 🔐 Get the Initial ArgoCD Admin Password
 
 ```bash
 kubectl get secret argocd-initial-admin-secret -n argocd \
@@ -568,23 +618,23 @@ kubectl get secret argocd-initial-admin-secret -n argocd \
 
 ---
 
-## Step 19:  Deploying with ArgoCD and Configuring Route 53 (Step-by-Step)
+## Step 15:  Deploying with ArgoCD and Configuring Route 53 (Step-by-Step)
 
-### Step 19.1: Create Namespace in EKS (from Jumphost EC2)
+### Step 15.1: Create Namespace in EKS (from Jumphost EC2)
 Run these commands on your jumphost EC2 server:
 ```bash
 kubectl create namespace dev
 kubectl get namespaces
 ```
 
-### Step 19.2: Create New Applicatio with ArgoCD
+### Step 15.2: Create New Applicatio with ArgoCD
 1. Open the **ArgoCD UI** in your browser.
 2. Click **+ NEW APP**.
 3. Fill in the following:
    - **Application Name:** `project`
    - **Project Name:** `default`
    - **Sync Policy:** `Automatic`
-   - **Repository URL:** `https://github.com/arumullayaswanth/Fullstack-nodejs-aws-eks-project.git`
+   - **Repository URL:** `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - **Revision:** `HEAD`
    - **Path:** `kubernetes-files`
    - **Cluster URL:** `https://kubernetes.default.svc`
@@ -606,9 +656,9 @@ kubectl get namespaces
      - ns-1418.awsdns-59.org
      - ns-265.awsdns-73.com
 
-### Step 19.3: Configure Route 53 for Backend
+### Step 19.3: Configure Route 53 for frontend
 1. In ArgoCD UI, open your `project` application.
-2. Click on **backend** and copy the hostname (e.g.,
+2. Click on **frontend** and copy the hostname (e.g.,
    `acfb06fba08834577a50e43724d328e3-1568967602.us-east-1.elb.amazonaws.com`).
 3. Go to **AWS Route 53** > **Hosted zones** > open your hosted zone (e.g., `aluru.site`).
 4. Click **Create record** and fill in:
@@ -616,7 +666,7 @@ kubectl get namespaces
    - **Alias:** `Yes`
    - **Alias target:** Choose Application and Classic Load Balancer
    - **Region:** `US East (N. Virginia)`
-   - **Alias target value:** Paste the backend load balancer DNS (from step 2)
+   - **Alias target value:** Paste the frontend load balancer DNS (from step 2)
 5. Click **Create record**.
 
 ### 6. 🔐 Enable HTTPS with ACM and Route 53 (Step-by-Step)
