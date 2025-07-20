@@ -30,7 +30,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: cartservice
+        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/cartservice:2
         ports:
         - containerPort: 7070
         env:
@@ -102,7 +102,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: redis:alpine
+        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/cartservice:2
         ports:
         - containerPort: 6379
         readinessProbe:
