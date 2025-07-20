@@ -1,10 +1,8 @@
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendationservice
-  labels:
-    app: recommendationservice
 spec:
   selector:
     matchLabels:
@@ -14,7 +12,7 @@ spec:
       labels:
         app: recommendationservice
     spec:
-      serviceAccountName: recommendationservice
+      serviceAccountName: default
       terminationGracePeriodSeconds: 5
       securityContext:
         fsGroup: 1000
@@ -30,7 +28,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/recommendationservice:4
+        image: 590183907926.dkr.ecr.us-east-1.amazonaws.com/recommendationservice:1  #please change the image url according to your account
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -60,8 +58,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: recommendationservice
-  labels:
-    app: recommendationservice
 spec:
   type: ClusterIP
   selector:
@@ -70,8 +66,3 @@ spec:
   - name: grpc
     port: 8080
     targetPort: 8080
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: recommendationservice
