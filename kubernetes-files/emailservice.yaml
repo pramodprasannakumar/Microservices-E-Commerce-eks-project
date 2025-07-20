@@ -22,7 +22,7 @@ spec:
         runAsUser: 1000
       containers:
         - name: server
-          image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice:3
+          image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice:4
           ports:
             - containerPort: 8080
           env:
