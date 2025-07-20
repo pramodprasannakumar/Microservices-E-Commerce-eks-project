@@ -51,7 +51,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: busybox:latest
+        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:2
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -64,7 +64,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: loadgenerator
+        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:2
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
