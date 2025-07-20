@@ -31,6 +31,9 @@ resource "aws_ecr_repository" "services" {
     encryption_type = "AES256"
   }
 
+  # ✅ This line tells AWS to delete all images before deleting the repo
+  force_delete = true
+
   tags = {
     Environment = "production"
     Service     = each.value
