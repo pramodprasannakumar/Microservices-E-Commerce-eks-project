@@ -28,7 +28,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: 590183907926.dkr.ecr.us-east-1.amazonaws.com/adservice:4    #please change the image url according to your account
+        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice:7
         ports:
         - containerPort: 9555
         env:
