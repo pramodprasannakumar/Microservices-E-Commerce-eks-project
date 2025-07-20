@@ -1,8 +1,9 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: emailservice
+  labels:
+    app: emailservice
 spec:
   selector:
     matchLabels:
@@ -12,7 +13,7 @@ spec:
       labels:
         app: emailservice
     spec:
-      serviceAccountName: default
+      serviceAccountName: emailservice
       terminationGracePeriodSeconds: 5
       securityContext:
         fsGroup: 1000
@@ -28,7 +29,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: 421954350274.dkr.ecr.us-east-1.amazonaws.com/emailservice:7
+        image: emailservice
         ports:
         - containerPort: 8080
         env:
@@ -56,6 +57,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: emailservice
+  labels:
+    app: emailservice
 spec:
   type: ClusterIP
   selector:
@@ -64,3 +67,8 @@ spec:
   - name: grpc
     port: 5000
     targetPort: 8080
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: emailservice
