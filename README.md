@@ -644,62 +644,179 @@ kubectl get namespaces
 
 ## Step 17: Create a Jenkins Pipeline Job for Backend and frondend & Route 53 Setup
 
-### Prerequisites
-1. Go to AWS Route 53
-2. Create a Hosted Zone:
-   - Domain: `aluru.site`
-   - Type: Public Hosted Zone
-3. Update Hostinger Nameservers:
-   - Paste the 4 NS records from Route 53 into Hostinger:
-     - ns-865.awsdns-84.net
-     - ns-1995.awsdns-97.co.uk
-     - ns-1418.awsdns-59.org
-     - ns-265.awsdns-73.com
+## Enable HTTPS for aluru.site with AWS Classic Load Balancer (CLB)
 
-### Step 19.3: Configure Route 53 for frontend
+This guide explains how to configure HTTPS for your domain `aluru.site` using AWS Classic Load Balancer (CLB), Route 53, and AWS Certificate Manager (ACM).
+
+---
+
+## ✅ Prerequisites
+
+* A working application (e.g., on EC2 or Kubernetes).
+* A registered domain: `aluru.site`
+* Domain is managed in **Route 53** as a **Public Hosted Zone**.
+   1. Go to AWS Route 53
+   2. Create a Hosted Zone:
+       - Domain: `aluru.site`
+       - Type: Public Hosted Zone
+   3. Update Hostinger Nameservers:
+      - Paste the 4 NS records from Route 53 into Hostinger:
+      - ns-865.awsdns-84.net
+      - ns-1995.awsdns-97.co.uk
+      - ns-1418.awsdns-59.org
+      - ns-265.awsdns-73.com 
+* Your Classic Load Balancer is running and serving HTTP on port 80 or 8080.
+
+---
+
+## 📌 Step 1: Request a Public Certificate in ACM
+
+1. Go to **AWS Certificate Manager** (ACM).
+2. Click **Request Certificate**.
+3. Choose **Request a Public Certificate**.
+4. Enter domain:
+
+   * `aluru.site`
+   * `www.aluru.site` (optional)
+5. Choose **DNS validation**.
+6. Click **Request**.
+7. After request:
+
+   * Click **Create DNS record in Route 53**.
+   * ACM will create the `_acme-challenge` CNAME record.
+8. Wait a few minutes until status becomes **Issued**.
+
+---
+
+## 📌 Step 2: Add HTTPS Listener to CLB
+
+1. Go to **EC2 Console > Load Balancers**.
+2. Select your **Classic Load Balancer**.
+3. Go to **Listeners** tab.
+4. Click **Add Listener** (or edit existing 443):
+
+   * Protocol: **HTTPS**
+   * Load Balancer Port: **443**
+   * Instance Protocol: **HTTP** (or HTTPS if applicable)
+   * Instance Port: **80** (or 8080 if your app runs there)
+   * SSL Certificate: Choose the one for `aluru.site`
+   * Security Policy: Select **ELBSecurityPolicy-2021-06**
+5. Click **Save**.
+
+---
+
+## 📌 Step 3: Update Security Group Rules
+
+Go to your EC2 or Load Balancer **Security Group**:
+
+* Add **Inbound Rule**:
+
+  * Type: HTTPS
+  * Protocol: TCP
+  * Port: 443
+  * Source: 0.0.0.0/0
+
+Ensure existing rules allow HTTP (port 80) or your backend port.
+
+---
+
+## 📌 Step 4: Configure DNS in Route 53
 1. In ArgoCD UI, open your `project` application.
 2. Click on **frontend** and copy the hostname (e.g.,
    `acfb06fba08834577a50e43724d328e3-1568967602.us-east-1.elb.amazonaws.com`).
-3. Go to **AWS Route 53** > **Hosted zones** > open your hosted zone (e.g., `aluru.site`).
-4. Click **Create record** and fill in:
-   - **Record type:** `A – Routes traffic to an IPv4 address and some AWS resources`
-   - **Alias:** `Yes`
-   - **Alias target:** Choose Application and Classic Load Balancer
-   - **Region:** `US East (N. Virginia)`
-   - **Alias target value:** Paste the frontend load balancer DNS (from step 2)
-5. Click **Create record**.
+   
+1. Go to **Route 53 > Hosted Zones**.
+2. Select `aluru.site`.
+3. Click **Create Record**:
 
-### 6. 🔐 Enable HTTPS with ACM and Route 53 (Step-by-Step)
+   * Record name: leave blank (for root domain)
+   * Record type: **A – Routes traffic to an IPv4 address and AWS resource**
+   * Alias: **Yes**
+   * **Alias target:** Choose Application and Classic Load Balancer
+   * Region: **US East (N. Virginia)**
+   * **Alias target value:** Paste the frontend load balancer DNS (from step 2)
 
-#### 6.1: Request a Public Certificate in ACM
-1. Go to **AWS Certificate Manager (ACM)** in the AWS Console.
-2. Click **Request a certificate**.
-3. Select **Request a public certificate** and click **Next**.
-4. Enter your domain name: `aluru.site` (and optionally `www.aluru.site`).
-5. Choose **DNS validation (recommended)**.
-6. Click **Request**.
+4. Click **Create Record**.
 
-#### 6.22: Validate Domain in Route 53
-1. In ACM, go to **Certificates** and select your new certificate.
-2. Under the domain, click **Create DNS record in Amazon Route 53**.
-3. Select your hosted zone: `aluru.site`.
-4. Click **Create record**.
-5. Wait a few minutes for validation to complete (Status: **Issued**).
+---
 
-#### 6.3: Add HTTPS Listener to Load Balancer
-1. Go to **EC2 Console** → **Load Balancers** → select your frontend ALB (e.g., `frontend-alb`).
-2. Go to the **Listeners** tab.
-3. Click **Add listener**:
-   - **Protocol:** HTTPS
-   - **Port:** 443
-   - **Action:** Forward to your web target group
-   - **Security policy:** ELBSecurityPolicy-2021-06 (or latest)
-   - **Select ACM Certificate:** Choose the one for `aluru.site`
-4. Click **Add**.
+## 📌 Step 5: Test Your Setup
 
-#### 6.4: Access Your Application
-1. Open your browser and go to: https://aluru.site
-2. Your application should now be accessible over HTTPS!
+### Using Browser
+
+Visit:
+
+```
+https://aluru.site
+```
+
+You should see your application load securely over HTTPS.
+
+### Using curl
+
+```bash
+curl -v https://aluru.site
+```
+
+Expect HTTP 200 OK or the actual page content.
+
+---
+
+## 🛠 Troubleshooting
+
+* **HTTPS times out?**
+
+  * Check port 443 is open in Security Group.
+  * Make sure your app is reachable from the CLB.
+  * ACM certificate must be in **Issued** status.
+* **HTTP works but HTTPS doesn't?**
+
+  * Listener or certificate may not be configured properly.
+  * Check the load balancer health check passes.
+
+---
+
+## 📌 Optional: HTTP to HTTPS Redirect
+
+This must be implemented in your application or with a reverse proxy like **NGINX**.
+
+Example NGINX config:
+
+```nginx
+server {
+  listen 80;
+  server_name aluru.site;
+  return 301 https://$host$request_uri;
+}
+```
+
+---
+
+You now have secure HTTPS traffic configured for `aluru.site`! ✅
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    
