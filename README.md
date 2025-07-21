@@ -246,7 +246,7 @@ kubectl get nodes
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
-3. Name it: `eks-terraform`
+3. Name it: `ecr-terraform`
 4. Select: **Pipeline**
 5. Click **OK**
  - Pipeline:
@@ -254,7 +254,7 @@ kubectl get nodes
    - SCM : `Git`
    - Repositories : `https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git`
    - Branches to build : `*/master`
-   - Script Path : `ecr-terraform/ecr-jenkinsfile`
+   - Script Path : `ecr-terraform/ecr-jenkinfile`
    - Apply
    - Save
 6. click **Build with Parameters**
