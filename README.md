@@ -794,6 +794,11 @@ server {
 
 You now have secure HTTPS traffic configured for `aluru.site`! ✅
 
+```bash
+terraform destroy -auto-approve
+terraform destroy -auto-approve --force
+```
+
 
 
 
