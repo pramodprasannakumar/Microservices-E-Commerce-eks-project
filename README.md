@@ -287,12 +287,13 @@ This guide will walk you through integrating **SonarQube** with **Jenkins** for 
 
 1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Configure System**.
 2. Scroll down to the **SonarQube servers** section.
-3. Click **Add SonarQube** and fill:
+3. select Environment variables
+4. Click **Add SonarQube** and fill:
    - **Name**: `sonarqube`
    - **Server URL**: `http://localhost:9000` *(or your actual Sonar IP)*
    - **Server Authentication Token**: Select `sonarqube` (from credentials)
-4. ✅ Check **Environment variables injection**.
-5. Click **Save**.
+5. ✅ Check **Environment variables injection**.
+6. Click **Save**.
 
 ## Step 13: Configure Webhook in SonarQube
 
