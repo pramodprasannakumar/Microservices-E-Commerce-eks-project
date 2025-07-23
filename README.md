@@ -251,7 +251,7 @@ This guide will walk you through integrating **SonarQube** with **Jenkins** for 
 1. Open **SonarQube Dashboard** in your browser (`http://localhost:9000`).
 2. Click **Projects** → **Manually** → **Create Project**.
 3. Fill in:
-   - **Project Display Name**: `swiggy`
+   - **Project Display Name**: `flipkart`
    - **Project Key**: (automatically generated)
    - **Main Branch Name**:`master` //Your Git default branch → `master` So, in SonarQube → set Main branch name to:`master`
 4. Click **setup**.
@@ -260,11 +260,11 @@ This guide will walk you through integrating **SonarQube** with **Jenkins** for 
 6. Click **Create Project**.
 
 ## 🔹 Step 10.2: Generate a Token for Your Project
-0. open swiggy project
+0. open flipkart project
 1. Click **Locally** → **Analyze your project**.
 2. When prompted for a token:
    - Click **Generate a project token**.
-   - **Token name**: (enter a name, e.g., `swiggy-token`)
+   - **Token name**: (enter a name, e.g., `flipkart-token`)
    - **Expires in**: `No expiration`
    -  **swiggy-token:**`sqp_cc249cfe9a25cb61880787076049fc7d56310005`
 3. Click **Generate**.
