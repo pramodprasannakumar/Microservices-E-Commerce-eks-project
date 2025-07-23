@@ -23,13 +23,6 @@ pipeline {
                 }
             }
         }
-        stage('Trivy File Scan') {
-            steps {
-                dir('src/adservice') {
-                    sh 'trivy fs . > trivyfs.txt'
-                }
-            }
-        }
         stage("ECR Image Pushing") {
             steps {
                 script {
@@ -44,15 +37,6 @@ pipeline {
                     docker push 421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice:${BUILD_NUMBER}
                     '''
                 }
-            }
-        }stage("TRIVY Image Scan") {
-            steps {
-                sh 'trivy image ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} > trivyimage.txt' 
-            }
-        }
-        stage('Checkout Code') {
-            steps {
-                git branch: 'master', url: 'https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git'
             }
         }
         stage('Update Deployment file') {
@@ -84,14 +68,5 @@ pipeline {
                 }
             }
         }
-        post {
-        always {
-            emailext attachLog: true,
-                subject: "'${currentBuild.result}'",
-                body: "Project: ${env.JOB_NAME}<br/>" +
-                      "Build Number: ${env.BUILD_NUMBER}<br/>" +
-                      "URL: ${env.BUILD_URL}<br/>",
-                to: 'yaswanth.arumulla@gmail.com',
-                attachmentsPattern: 'trivyfs.txt,trivyimage.txt,dependency-check-report.xml'
     }
 }
