@@ -227,16 +227,214 @@ Click **Save** for both.
 4. when installation is compete:
    - ✅ **Restart jenkins when installation is complete and no job are running**
 
+---
+## 🌐 Step 10: SonarQube Setup in Browser
+
+1. Open browser and go to:
+
+```bash
+http://<EC2 Public IP>:9000
+```
+Log in with:
+      - Username: `admin`
+      - Password: `admin` (change after first login)
+2. Update your password
+  - **Old Password**: `admin`    
+  - **New Password**: `yaswanth`
+  - **Confirm Password**:`yaswanth`   
+  - **update**
+## 🧪 SonarQube & Jenkins Integration 
+This guide will walk you through integrating **SonarQube** with **Jenkins** for static code analysis, from setting up the project in SonarQube to configuring Jenkins plugins and credentials.
+
+## 🔹 Step 10.1: Create a Project in SonarQube
+
+1. Open **SonarQube Dashboard** in your browser (`http://localhost:9000`).
+2. Click **Projects** → **Manually** → **Create Project**.
+3. Fill in:
+   - **Project Display Name**: `swiggy`
+   - **Project Key**: (automatically generated)
+   - **Main Branch Name**:`master` //Your Git default branch → `master` So, in SonarQube → set Main branch name to:`master`
+4. Click **setup**.
+5. Under **Setup your project for Clean as You Code**, choose:
+   - **What should be the baseline for new code?** → Select **Use the Getting Started tutorial**
+6. Click **Create Project**.
+
+## 🔹 Step 10.2: Generate a Token for Your Project
+0. open swiggy project
+1. Click **Locally** → **Analyze your project**.
+2. When prompted for a token:
+   - Click **Generate a project token**.
+   - **Token name**: (enter a name, e.g., `swiggy-token`)
+   - **Expires in**: `No expiration`
+   -  **swiggy-token:**`sqp_cc249cfe9a25cb61880787076049fc7d56310005`
+3. Click **Generate**.
+4. **Copy the token** – you'll need it in Jenkins.
+
+## Step 11: Add SonarQube Token as Jenkins Credential
+
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials**.
+2. Click **System** → **Global credentials (unrestricted)**.
+3. Click **Add Credentials**.
+4. Fill in:
+   - **Kind**: `Secret text`
+   - **Secret**: *(paste your SonarQube token)*
+   - **ID**: `sonarqube`
+   - **Description**: `sonarqube token`
+5. Click **Create**.
+
+---
+## Step 12: Configure SonarQube Server in Jenkins
+
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Configure System**.
+2. Scroll down to the **SonarQube servers** section.
+3. Click **Add SonarQube** and fill:
+   - **Name**: `sonarqube`
+   - **Server URL**: `http://localhost:9000` *(or your actual Sonar IP)*
+   - **Server Authentication Token**: Select `sonarqube` (from credentials)
+4. ✅ Check **Environment variables injection**.
+5. Click **Save**.
+
+## Step 13: Configure Webhook in SonarQube
+
+1. Go to **SonarQube Dashboard** → **Administration**
+2. Under **Configuration**, click **Webhooks**
+3. Click **Create**
+4. Fill:
+   - **Name**: `jenkins`
+   - **Server URL**: `http://localhost:8080/sonarqube-webhook/` *(or your actual jenkins IP)*
+5. Click **Create**
+
+This allows SonarQube to notify Jenkins after analysis is complete.
+
+---
+
+## Step 14: Configure Tools
+
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Tool**.
+
+2. Scroll to **JDK installations** section:
+   - Click **Add JDK**
+   - **Name**: `jdk`
+   - ✅ Check **Install automatically**
+     - Add Installer
+       - select `install from adoptium.net`
+          - version : `jdk-17.0.8.1+1
+
+3. Scroll to **SonarQube Scanner** section:
+   - Click **Add SonarQube Scanner**
+   - **Name**: `sonarqube-scanner`
+   - ✅ Check **Install automatically**
+     - version : `SonarQube Scanner 7.0.1.4817` 
+      - it is least version
+
+4. Scroll to **NodeJS installations** section:
+   - Click **Add NodeJs**
+   - **Name**: `nodejs`
+   - ✅ Check **Install automatically**
+       - version : `Nodejs 23.7.0` 
+          - it is least version
+
+5. Scroll to **Dependency-check installation** section:
+   - Click **Add Dependency-check**
+   - **Name**: `DP-check`
+   - ✅ Check **Install automatically**
+     - Add Installer
+       - select `install from github.com`
+          - version : `dependency-check-12.0.2`
+             - it is least version
+
+6. Scroll to **Docker** section:
+   - Click **Add Docker**
+   - **Name**: `Docker`
+   - ✅ Check **Install automatically**
+     - Add Installer
+       - select `Download from docker.com`
+          - version : `least`
+             - it is least version
+
+7. Scroll to **Maven** section:
+   - Click **Add Maven**
+   - **Name**: `maven`
+   - ✅ Check **Install automatically**
+
+4. Click **Save**.
+
+---
+
+## 🔹 Step 15: 📧 Jenkins Email Notification Setup with Gmail 
+Follow these steps to set up **email notifications in Jenkins using your Gmail account**.
 
 
+#### 🔐 Step 15.1: Enable 2-Step Verification & App Password in Gmail
+
+1. Go to **[Gmail](https://mail.google.com)**.
+2. In the top-right, click **Manage your Google Account**.
+3. In the left sidebar, click **Security**.
+4. Under **Signing in to Google**, check if **2-Step Verification** is enabled.
+   - If **not**, turn it **ON** and complete the setup.
+5. In the top Google search bar, type: `App Passwords`
+6. Generate an app password:
+   - **App Name**: `jenkins`
+   - Click **Generate**
+   - 🔑 **Copy the generated password**
 
 
+#### 🔧 Step 15.2: Add Gmail Credentials in Jenkins
 
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials**
+2. Click **System** → **Global credentials (unrestricted)**
+3. Click **Add Credentials**
+4. Fill the form:
+   - **Kind**: `Username with password`
+   - **Username**: `yaswanth.arumulla@gmail.com`
+   - **Password**: *(paste the app password)*
+   - **ID**: `email`
+   - **Description**: `email`
+5. Click **Create**
 
+#### ⚙️ Step 15.3: Configure Email Settings in Jenkins
 
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Configure System**
+2. Scroll down to **Extended E-mail Notification**
+   - **SMTP Server**: `smtp.gmail.com`
+   - **SMTP Port**: `465`
+   - Click **Advanced**
+   - **Credentials**: Select the `email` credential
+   - ✅ **Use SSL**
+   - ✅ **Use OAuth 2.0**
+   - **Default Content Type**: `html (text/html)`
 
+3. Scroll down to **E-mail Notification**
+   - **SMTP Server**: `smtp.gmail.com`
+   - Click **Advanced**
+     - ✅ **Use SMTP Authentication**
+     - **User Name**: `yaswanth.arumulla@gmail.com`
+     - **Password**: *(paste app password)*
+     - ✅ **Use SSL**
+     - **SMTP Port**: `465`
+     - **Reply-to Address**: `yaswanth.arumulla@gmail.com`
+     - **Charset**: `UTF-8`
+     - **Test configuration**:
+       - **Test E-mail recipient**: `yaswanth.arumulla@gmail.com`
+       - Click **Test Configuration** to verify
 
+#### 🔄 Step 15.4: Set Default Email Triggers in Jenkins
 
+1. Scroll down to **Default Triggers**
+2. Click the dropdown and select:
+   - ✅ `Always`
+   - ✅ `Failure`
+   - ✅ `Success`
+
+3. Click **Apply** then **Save**.
+
+#### ✅ Step 15.5: Check Gmail
+
+- Go to your **Gmail inbox** and confirm that a test email has arrived from Jenkins.
+
+- You're now ready to receive Jenkins pipeline notifications via Gmail!
+
+---
 
 
 
@@ -248,7 +446,7 @@ Click **Save** for both.
 
 ---
 
-## 🛠️ Step 10: Create a Jenkins Pipeline Job (Create EKS Cluster)
+## 🛠️ Step 16: Create a Jenkins Pipeline Job (Create EKS Cluster)
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
@@ -275,7 +473,7 @@ kubectl get nodes
 ```
 ---
 
-## 🛠️ Step 11: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
+## 🛠️ Step 17: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
@@ -343,9 +541,9 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 - Use the search bar to search each repository name:
 
 ---
-## Step 12: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
+## Step 18: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
 
-### 🔐 Step 12.1: Add GitHub PAT to Jenkins Credentials
+### 🔐 Step 18.1: Add GitHub PAT to Jenkins Credentials
 
 1. Navigate to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials** → **(global)** → **Global credentials (unrestricted)**.
 2. Click **“Add Credentials”**.
