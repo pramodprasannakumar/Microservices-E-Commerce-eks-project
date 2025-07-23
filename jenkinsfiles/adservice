@@ -32,9 +32,10 @@ pipeline {
                 dir('src/adservice') {
                     withSonarQubeEnv('sonarqube-scanner') {
                         sh ''' 
-                            ${SCANNER_HOME}/bin/sonar-scanner \
-                            -Dsonar.projectName=flipkart \
-                            -Dsonar.projectKey=flipkart 
+                            mvn clean verify sonar:sonar \
+                              -Dsonar.projectKey=flipkart \
+                              -Dsonar.host.url=http://52.206.222.98:9000 \
+                              -Dsonar.login=sqp_c0a637357ddad4327a05dad07db470340bce1836
                         '''
                     }
                 }
