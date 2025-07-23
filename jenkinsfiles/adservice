@@ -1,6 +1,17 @@
 pipeline {
     agent any 
+    tools {
+        jdk 'jdk'
+        nodejs 'nodejs'
+    }
+    environment  {
+        SCANNER_HOME= tool 'sonarqube-scanner'
+        AWS_ACCOUNT_ID = '421954350274'
+        AWS_ECR_REPO_NAME = 'adservice'
+        AWS_DEFAULT_REGION = 'us-east-1'
+        REPOSITORY_URI = "421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice"
 
+    }
     stages {
         stage('Cleaning Workspace') {
             steps {
@@ -11,14 +22,47 @@ pipeline {
             steps {
                 git branch: 'master', url: 'https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git'
             }
+            }
+        }
+        stage("List Files") {
+            steps {
+                sh 'ls -la' // verfy files after checkout
+            }
+        }
+        stage('Sonarqube Analysis') {
+            steps {
+                dir('src/adservice') {
+                    withSonarQubeEnv('sonarqube-scanner') {
+                        sh ''' 
+                        $SCANNER_HOME/bin/sonarqube-scanner \
+                        -Dsonar.projectName=adservice \
+                        -Dsonar.projectKey=adservice 
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Quality Check') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                }
+            }
+        }
+        stage('Trivy File Scan') {
+            steps {
+                dir('src/adservice') {
+                    sh 'trivy fs . > trivyfs.txt'
+                }
+            }
         }
         stage("Docker Image Build") {
             steps {
                 script {
                     dir('src/adservice') {
-                        sh 'docker system prune -f'
-                        sh 'docker container prune -f'
-                        sh 'docker build -t adservice .'
+                            sh 'docker system prune -f'
+                            sh 'docker container prune -f'
+                            sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
                     }
                 }
             }
@@ -26,17 +70,20 @@ pipeline {
         stage("ECR Image Pushing") {
             steps {
                 script {
-                    sh '''
-                    #Retrieve an authentication token and authenticate your Docker client to your registry. Use the AWS CLI:
-                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 421954350274.dkr.ecr.us-east-1.amazonaws.com
-
-                    #After the build completes, tag your image so you can push the image to this repository:
-                    docker tag adservice:latest 421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice:${BUILD_NUMBER}
-
-                    #Run the following command to push this image to your newly created AWS repository:
-                    docker push 421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice:${BUILD_NUMBER}
-                    '''
+                        sh 'aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}'
+                        sh 'docker tag ${AWS_ECR_REPO_NAME} ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}'
+                        sh 'docker push ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}'
                 }
+            }
+        }
+        stage("TRIVY Image Scan") {
+            steps {
+                sh 'trivy image ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} > trivyimage.txt' 
+            }
+        }
+        stage('Checkout Code') {
+            steps {
+                git branch: 'master', url: 'https://github.com/arumullayaswanth/Microservices-E-Commerce-eks-project.git'
             }
         }
         stage('Update Deployment file') {
@@ -44,8 +91,8 @@ pipeline {
                 GIT_REPO_NAME = "Microservices-E-Commerce-eks-project"
                 GIT_EMAIL = "Yaswanth.arumulla@gmail.com"
                 GIT_USER_NAME = "arumullayaswanth"
-                IMAGE_NAME = "adservice"
-                REPO_URL = "421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice"
+                AWS_ECR_REPO_NAME = 'adservice'
+                REPOSITORY_URI = "421954350274.dkr.ecr.us-east-1.amazonaws.com/adservice"
                 YAML_FILE = "adservice.yaml"
             }
             steps {
@@ -58,9 +105,9 @@ pipeline {
                             echo $BUILD_NUMBER
 
                             # push this image to your git hub
-                            sed -i "s#image:.*#image: ${REPO_URL}:$BUILD_NUMBER#g" ${YAML_FILE}
+                            sed -i "s#image:.*#image: ${REPOSITORY_URI}:$BUILD_NUMBER#g" ${YAML_FILE}
                             git add .
-                            git commit -m "Update ${IMAGE_NAME} Image to version \${BUILD_NUMBER}"
+                            git commit -m "Update ${AWS_ECR_REPO_NAME} Image to version \${BUILD_NUMBER}"
                             git push https://${git_token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
         
                         '''
@@ -68,5 +115,16 @@ pipeline {
                 }
             }
         }
+        post {
+        always {
+            emailext attachLog: true,
+                subject: "'${currentBuild.result}'",
+                body: "Project: ${env.JOB_NAME}<br/>" +
+                      "Build Number: ${env.BUILD_NUMBER}<br/>" +
+                      "URL: ${env.BUILD_URL}<br/>",
+                to: 'yaswanth.arumulla@gmail.com',
+                attachmentsPattern: 'trivyfs.txt,trivyimage.txt,dependency-check-report.xml'
+        }
+    }
     }
 }
