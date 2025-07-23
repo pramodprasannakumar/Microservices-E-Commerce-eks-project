@@ -234,7 +234,7 @@ Click **Save** for both.
 
 ---
 
-## 🛠️ Step 16: Create a Jenkins Pipeline Job (Create EKS Cluster)
+## 🛠️ Step 10: Create a Jenkins Pipeline Job (Create EKS Cluster)
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
@@ -261,7 +261,7 @@ kubectl get nodes
 ```
 ---
 
-## 🛠️ Step 17: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
+## 🛠️ Step 11: Create a Jenkins Pipeline Job (Create Elastic Container Registry (ecr))
 
 1. Go to Jenkins Dashboard
 2. Click **New Item**
@@ -329,9 +329,9 @@ This guide shows how to verify if your ECR repositories exist using the AWS Cons
 - Use the search bar to search each repository name:
 
 ---
-## Step 18: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
+## Step 12: Create a Jenkins Pipeline Job for Build and Push Docker Images to ECR
 
-### 🔐 Step 18.1: Add GitHub PAT to Jenkins Credentials
+### 🔐 Step 12.1: Add GitHub PAT to Jenkins Credentials
 
 1. Navigate to **Jenkins Dashboard** → **Manage Jenkins** → **Credentials** → **(global)** → **Global credentials (unrestricted)**.
 2. Click **“Add Credentials”**.
