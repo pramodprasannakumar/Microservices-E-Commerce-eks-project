@@ -199,18 +199,51 @@ Click **Save** for both.
 
 ---
 
-## 🔌 Step 9: Install Jenkins Plugin
+## 🔌 Step 9: Install Required Jenkins Plugins
 
-1. Jenkins Dashboard → **Manage Jenkins**
-2. Go to: **Plugins**
-3. Click **Available plugins**
-4. Search for:
-   - `pipeline: stage view`
-   - `Docker`
-   - `Docker Pipeline`
-   - `Kubernetes`
-   - `Kubernetes CLI`
-5. Install it
+1. Go to **Jenkins Dashboard** → **Manage Jenkins** → **Plugins**.
+2. Click the **Available** tab.
+3. Search and install the following:
+   - ✅ **Pipeline: stage view**
+   - ✅ **Eclipse Temurin installer**
+   - ✅ **SonarQube Scanner**
+   - ✅ **Maven Integration**
+   - ✅ **NodeJS**
+   - ✅ **Docker**
+   - ✅ **Docker Commons**
+   - ✅ **Docker pipeline**
+   - ✅ **Docker API**
+   - ✅ **Docker-build-step**
+   - ✅ **Amazon ECR**
+   - ✅ **Kubernetes Client API**
+   - ✅ **Kubernetes**
+   - ✅ **Kubernetes Cerdentials**
+   - ✅ **Kubernetes CLI**
+   - ✅ **Kubernetes Cerdentials Provider**
+   - ✅ **Config File Provider**
+   - ✅ **OWASP Dependency-check**
+   - ✅ **Email Extension Template**
+   - ✅ **Prometheus metrics**
+4. when installation is compete:
+   - ✅ **Restart jenkins when installation is complete and no job are running**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ---
