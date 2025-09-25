@@ -6,3 +6,9 @@ https://medium.com/@yaswanth.arumulla/how-to-deploy-a-full-microservices-e-comme
 terraform destroy -auto-approve
 terraform destroy -auto-approve --force
 ```
+
+
+
+monitoring :
+
+https://medium.com/@yaswanth.arumulla/kubernetes-monitoring-for-everyone-step-by-step-with-prometheus-grafana-b8582f0cf808
